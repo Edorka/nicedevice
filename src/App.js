@@ -1,24 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import DevicesMap from "./DeviceMap";
+import FilterTool from "./FilterTool";
+
+const _DEFAULT_FILTER = { onlyActive: false };
 
 function App() {
+  const [filter, setFilter] = useState(_DEFAULT_FILTER);
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <span className="title">Nice Device</span>
+        <FilterTool filter={filter} setFilter={setFilter}></FilterTool>
       </header>
+      <DevicesMap filter={filter}></DevicesMap>
     </div>
   );
 }
