@@ -1,6 +1,6 @@
 import React from "react";
 import L from "leaflet";
-import { Marker, Popup } from "react-leaflet";
+import {Marker, Popup} from "react-leaflet";
 //import icon from 'leaflet/dist/images/marker-icon.png';
 //import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import "@fortawesome/fontawesome-free/css/all.css";

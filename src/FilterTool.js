@@ -1,8 +1,7 @@
 import React from "react";
 import styles from "./FilterTool.module.scss";
 
-const OnlyActive = ({ onChange }) => (
-  <div className={styles.control}>
+const SwitchControl = ({onChange}) => (
     <label className={styles.switch}>
       <input
         type="checkbox"
@@ -10,16 +9,24 @@ const OnlyActive = ({ onChange }) => (
       ></input>
       <span className="slider round"></span>
     </label>
+)
+
+const OnlyActive = ({ filter, setFilter }) => {
+  const updateOnlyActive = active =>
+ setFilter({ ...filter, onlyActive: active });
+ return (
+  <div className={styles.control}>
+    <SwitchControl onChange={updateOnlyActive} ></SwitchControl>
     Active only
   </div>
 );
+}
 
 const FilterTool = ({ filter, setFilter }) => {
-  const updateOnlyActive = active =>
-    setFilter({ ...filter, onlyActive: active });
+
   return (
     <div className={styles.filterTool}>
-      <OnlyActive onChange={updateOnlyActive}></OnlyActive>
+      <OnlyActive filter={filter} setFilter={setFilter}></OnlyActive>
     </div>
   );
 };

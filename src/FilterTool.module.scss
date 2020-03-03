@@ -1,10 +1,18 @@
+@import "./theme.scss";
+
 .filterTool {
-  font-size: 1.6vw;
+  font-size: 1.3vw;
 }
 .control {
   display: flex;
   flex-direction: row;
   align-items: center;
+  :global {
+    label {
+      margin-right: 0.5em;
+    }
+  
+  }
 }
 
 /* The switch - the box around the slider */
@@ -49,11 +57,11 @@
     }
 
     input:checked + .slider {
-      background-color: #2196f3;
+      background-color: $secondary;
     }
 
     input:focus + .slider {
-      box-shadow: 0 0 1px #2196f3;
+      box-shadow: 0 0 1px $secondary;
     }
 
     input:checked + .slider:before {

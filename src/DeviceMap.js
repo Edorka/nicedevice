@@ -1,5 +1,5 @@
 import React from "react";
-import { Map, Marker, Popup, TileLayer } from "react-leaflet";
+import {Map, TileLayer} from "react-leaflet";
 import styles from "./DeviceMap.module.css";
 import "leaflet/dist/leaflet.css";
 import DeviceMarker from "./DeviceMarker";
@@ -32,8 +32,9 @@ class DevicesMap extends React.Component {
 
   render() {
     const { filter } = this.props;
-    const filterDirective =
-      filter.onlyActive !== true ? () => true : ({ Active }) => Active === true;
+    const filterDirective = filter.onlyActive !== true 
+      ? () => true
+      : ({ Active }) => Active === true;
     const position = [this.state.lat, this.state.lng];
     return (
       <div className={styles.wrapper}>

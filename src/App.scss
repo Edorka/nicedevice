@@ -1,3 +1,5 @@
+@import "./theme.scss";
+
 html,
 body,
 #root,
@@ -19,4 +21,5 @@ body,
   justify-content: space-between;
   font-size: 2vw;
   padding: 0 1vw;
+  background-color: $primary;
 }
