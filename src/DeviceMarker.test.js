@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import DeviceMarker from "./DeviceMarker";
 import { Map } from "react-leaflet";
 
-test("renders learn react link", () => {
+it("renders learn react link", () => {
   const data = {
     Geometry: { Coordinates: [0, 1] }
   };

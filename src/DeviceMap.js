@@ -19,13 +19,14 @@ class DevicesMap extends React.Component {
   }
 
   updateBoundaries({ target }) {
-    const bounds = target.getBounds();
+    const mapBounds = target.getBounds();
+    const boundaries = {
+      northWest: mapBounds.getNorthWest(),
+      southEast: mapBounds.getSouthEast(),
+    };
     this.setState(state => ({
       ...state,
-      coordinates: {
-        northWest: bounds.getNorthWest(),
-        southEasth: bounds.getSouthEast()
-      }
+      boundaries,
     }));
   }
 
