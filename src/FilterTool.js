@@ -23,7 +23,6 @@ const OnlyActive = ({ filter, setFilter }) => {
 }
 
 const FilterTool = ({ filter, setFilter }) => {
-
   return (
     <div className={styles.filterTool}>
       <OnlyActive filter={filter} setFilter={setFilter}></OnlyActive>

@@ -4,6 +4,23 @@ import styles from "./DeviceMap.module.css";
 import "leaflet/dist/leaflet.css";
 import DeviceMarker from "./DeviceMarker";
 import devices from "./devices.json";
+import Retrieve from './Retrieve';
+
+const asTuple = (coords) => 
+  [coords.lng, coords.lat];
+
+
+const DevicesOnLocation = ({southEast, northWest, active}) =>
+  <Retrieve url={'http://localhost:6001/devices'} params={{southEast, northWest, active}}>
+    {(response) => 
+      console.log('response', response) ||
+      (response.items && response.items.map( ({ ID, ...device }) => 
+        (<DeviceMarker key={ID} {...device}>
+              {" "}
+        </DeviceMarker>)
+      ))
+    }
+  </Retrieve>
 
 class DevicesMap extends React.Component {
   constructor() {
@@ -13,7 +30,8 @@ class DevicesMap extends React.Component {
     this.state = {
       lat,
       lng,
-      zoom: 4
+      zoom: 4,
+      boundaries: null,
     };
     this.updateBoundaries = this.updateBoundaries.bind(this);
   }
@@ -21,8 +39,8 @@ class DevicesMap extends React.Component {
   updateBoundaries({ target }) {
     const mapBounds = target.getBounds();
     const boundaries = {
-      northWest: mapBounds.getNorthWest(),
-      southEast: mapBounds.getSouthEast(),
+      northWest: asTuple(mapBounds.getNorthWest()),
+      southEast: asTuple(mapBounds.getSouthEast()),
     };
     this.setState(state => ({
       ...state,
@@ -32,10 +50,10 @@ class DevicesMap extends React.Component {
 
   render() {
     const { filter } = this.props;
-    const filterDirective = filter.onlyActive !== true 
-      ? () => true
-      : ({ Active }) => Active === true;
-    const position = [this.state.lat, this.state.lng];
+    const { lat, lng, boundaries } = this.state;
+    console.log('boundaries', boundaries);
+    const position = [lat, lng];
+    const active = filter.onlyActive === true || undefined;
     return (
       <div className={styles.wrapper}>
         <Map
@@ -48,11 +66,11 @@ class DevicesMap extends React.Component {
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
           />
-          {devices.filter(filterDirective).map(({ ID, ...device }) => (
-            <DeviceMarker key={ID} {...device}>
-              {" "}
-            </DeviceMarker>
-          ))}
+          { boundaries !== null
+            ? <DevicesOnLocation {...boundaries} active={active}> </DevicesOnLocation> 
+            : null
+          }
+
         </Map>
       </div>
     );
