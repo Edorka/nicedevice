@@ -1,0 +1,21 @@
+{
+  "name": "nicedevice-backend",
+  "version": "0.0.1",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.6",
+    "@babel/preset-env": "^7.8.6",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5"
+  },
+  "babel": {
+    "presets": ["@babel/preset-env"]
+  }
+}
