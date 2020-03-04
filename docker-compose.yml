@@ -1,0 +1,19 @@
+version: "2"
+services:
+    client:
+        image: nicedevice-client
+        build: ./
+        restart: always
+        ports:
+            - "3000:3000"
+        volumes:
+            - .:/app
+            - /app/node_modules
+        links:
+            - api
+    api:
+        image: nicedevice-api
+        build: ./api
+        restart: always
+        ports:
+            - "6001:6001"

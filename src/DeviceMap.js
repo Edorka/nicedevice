@@ -3,8 +3,7 @@ import {Map, TileLayer} from "react-leaflet";
 import styles from "./DeviceMap.module.css";
 import "leaflet/dist/leaflet.css";
 import DeviceMarker from "./DeviceMarker";
-import devices from "./devices.json";
-import Retrieve from './Retrieve';
+import Retrieve from './components/Retrieve';
 
 const asTuple = (coords) => 
   [coords.lng, coords.lat];
@@ -13,7 +12,6 @@ const asTuple = (coords) =>
 const DevicesOnLocation = ({southEast, northWest, active}) =>
   <Retrieve url={'http://localhost:6001/devices'} params={{southEast, northWest, active}}>
     {(response) => 
-      console.log('response', response) ||
       (response.items && response.items.map( ({ ID, ...device }) => 
         (<DeviceMarker key={ID} {...device}>
               {" "}
@@ -25,8 +23,7 @@ const DevicesOnLocation = ({southEast, northWest, active}) =>
 class DevicesMap extends React.Component {
   constructor() {
     super();
-    const sample = devices[0];
-    const [lat, lng] = sample.Geometry.Coordinates;
+    const [lat, lng] = [ -3, 3]; //TODO retrieve AoI from back-end.
     this.state = {
       lat,
       lng,
@@ -42,6 +39,7 @@ class DevicesMap extends React.Component {
       northWest: asTuple(mapBounds.getNorthWest()),
       southEast: asTuple(mapBounds.getSouthEast()),
     };
+    // TODO: debounce for half a second
     this.setState(state => ({
       ...state,
       boundaries,
@@ -51,8 +49,7 @@ class DevicesMap extends React.Component {
   render() {
     const { filter } = this.props;
     const { lat, lng, boundaries } = this.state;
-    console.log('boundaries', boundaries);
-    const position = [lat, lng];
+    const position = [lat, lng]; //This tuple is reversed
     const active = filter.onlyActive === true || undefined;
     return (
       <div className={styles.wrapper}>

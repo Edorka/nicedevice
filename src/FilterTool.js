@@ -1,22 +1,14 @@
-import React from "react";
-import styles from "./FilterTool.module.scss";
+import React from 'react';
+import styles from './FilterTool.module.scss';
+import Switch from './components/Switch';
 
-const SwitchControl = ({onChange}) => (
-    <label className={styles.switch}>
-      <input
-        type="checkbox"
-        onChange={({ target }) => onChange(target.checked)}
-      ></input>
-      <span className="slider round"></span>
-    </label>
-)
 
 const OnlyActive = ({ filter, setFilter }) => {
   const updateOnlyActive = active =>
  setFilter({ ...filter, onlyActive: active });
  return (
   <div className={styles.control}>
-    <SwitchControl onChange={updateOnlyActive} ></SwitchControl>
+    <Switch onChange={updateOnlyActive} ></Switch>
     Active only
   </div>
 );
